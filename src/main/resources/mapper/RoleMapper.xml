@@ -1,0 +1,22 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.auroraops04.auroraops04_blog.mapper.RoleMapper">
+    <select id="listByUserId" resultType="club.auroraops04.auroraops04_blog.entities.Role">
+        select r.* from role r where r.id in (
+            select role_id from user_role where user_id = #{userId}
+            )
+    </select>
+
+    <insert id="addToUser">
+        insert into user_role (role_id, user_id) values (#{roleId}, #{userId})
+    </insert>
+    <delete id="removeRoleFromUser">
+        delete from user_role where role_id = #{roleId} and user_id = #{userId}
+    </delete>
+    <delete id="removeRoleFromAllUser">
+        delete from user_role where role_id = #{value}
+    </delete>
+    <delete id="removeAllPermissionByRoleId">
+        delete from role_permission where role_id = #{value}
+    </delete>
+</mapper>

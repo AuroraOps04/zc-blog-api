@@ -1,0 +1,14 @@
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="club.auroraops04.auroraops04_blog.mapper.UserMapper">
+    <select id="listByUserId" resultType="permission">
+        select p.* from permission p where p.id in (
+            select permission_id from role_permission where role_id in (
+                select role_id from user_role where user_id = #{value}
+                )
+            )
+    </select>
+    <select id="getByUsername" resultType="user">
+        select *  from user where username = #{value}
+    </select>
+</mapper>
