@@ -1,11 +1,9 @@
 package club.auroraops04.auroraops04_blog.entities;
 
-import com.baomidou.mybatisplus.annotation.EnumValue;
+import club.auroraops04.auroraops04_blog.entities.enums.UserStatus;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonValue;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 

@@ -1,6 +1,6 @@
 package club.auroraops04.auroraops04_blog.vo.request;
 
-import club.auroraops04.auroraops04_blog.entities.UserStatus;
+import club.auroraops04.auroraops04_blog.entities.enums.UserStatus;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.URL;

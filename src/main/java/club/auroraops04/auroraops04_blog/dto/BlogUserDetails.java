@@ -2,7 +2,7 @@ package club.auroraops04.auroraops04_blog.dto;
 
 import club.auroraops04.auroraops04_blog.entities.Permission;
 import club.auroraops04.auroraops04_blog.entities.User;
-import club.auroraops04.auroraops04_blog.entities.UserStatus;
+import club.auroraops04.auroraops04_blog.entities.enums.UserStatus;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;

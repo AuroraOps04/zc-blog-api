@@ -7,7 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -25,6 +27,10 @@ import java.util.stream.Collectors;
 public class GlobalExceptionHandler {
     private static final Logger LOGGER = LoggerFactory.getLogger(GlobalExceptionHandler.class);
 
+    @ExceptionHandler(UsernameNotFoundException.class)
+    public ApiResponse<Object> usernameNotFoundExceptionHandler(UsernameNotFoundException e){
+        return new ApiResponse<>(ApiResponseCode.BAD_REQUEST.getCode(), false, e.getMessage());
+    }
 
     @ExceptionHandler(BusinessException.class)
     public ApiResponse<Object> businessExceptionHandler(BusinessException e){
@@ -53,6 +59,11 @@ public class GlobalExceptionHandler {
     public ApiResponse<Object> httpMediaTypeNotSupportedExceptionHandler(HttpMediaTypeNotSupportedException e){
         LOGGER.warn(e.getMessage());
         return new ApiResponse<>(200, false, "Content-type不支持", null);
+    }
+
+    @ExceptionHandler(HttpRequestMethodNotSupportedException.class)
+    public ApiResponse<Object> HttpRequestMethodNotSupportedExceptionHandler(HttpRequestMethodNotSupportedException e){
+        return new ApiResponse<>(200, false, e.getMessage(), null);
     }
 
     /**

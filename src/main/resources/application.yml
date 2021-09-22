@@ -1,6 +1,6 @@
 
 server:
-  port: 8090
+  port: 8080
 
 spring:
   servlet:
@@ -69,11 +69,11 @@ mybatis-plus:
   mapper-locations:
     - classpath:mapper/*.xml
     - classpath*:club/**/mapper/*.xml
-  type-enums-package: club.auroraOps04.auroraops04_blog.entities
+  typeEnumsPackage: club.auroraops04.auroraops04_blog.entities.enums
 
 
 jwt:
-  secret:  sfsfsdfsfdasdfasfwiefwnf3423
+  secret:  sfsfsdfsfdasdfasfwiefwnf_+@&&23423
   expiration: 604800 # 60 * 60 * 24 * 7
   tokenHeader: Authorization
   tokenHead: Bear
