@@ -6,6 +6,7 @@ import club.auroraops04.auroraops04_blog.service.UserService;
 import club.auroraops04.auroraops04_blog.vo.request.LoginForm;
 import club.auroraops04.auroraops04_blog.vo.request.RegisterForm;
 import club.auroraops04.auroraops04_blog.vo.request.UpdateUserForm;
+import club.auroraops04.auroraops04_blog.vo.request.UserListFilterForm;
 import club.auroraops04.auroraops04_blog.vo.response.ApiPageResponse;
 import club.auroraops04.auroraops04_blog.vo.response.ApiResponse;
 import io.swagger.annotations.Api;
@@ -39,7 +40,7 @@ public class AdminUserController extends BaseController {
     @ApiOperation("用户列表")
     @PreAuthorize("hasAuthority('admin:user:list')")
     @SuppressWarnings({"rawtypes"})
-    public ApiPageResponse list(User condition) {
+    public ApiPageResponse list(UserListFilterForm condition) {
         startPage();
         return getPageData(userService.listByCondition(condition));
     }

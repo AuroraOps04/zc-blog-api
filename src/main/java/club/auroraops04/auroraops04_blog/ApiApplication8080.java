@@ -17,15 +17,15 @@ import org.springframework.context.annotation.Bean;
 
 @SpringBootApplication
 @MapperScan(basePackages = "club.auroraops04.auroraops04_blog.mapper")
-public class ApiApplication8090  extends SpringBootServletInitializer {
+public class ApiApplication8080 extends SpringBootServletInitializer {
     public static void main(String[] args) {
-        SpringApplication.run(ApiApplication8090.class, args);
+        SpringApplication.run(ApiApplication8080.class, args);
     }
 
     // 配置war包
     @Override
     protected SpringApplicationBuilder configure(SpringApplicationBuilder builder) {
-        return builder.sources(ApiApplication8090.class);
+        return builder.sources(ApiApplication8080.class);
     }
 
     /**

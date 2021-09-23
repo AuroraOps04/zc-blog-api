@@ -3,6 +3,8 @@ server:
   port: 8080
 
 spring:
+  profiles:
+    active: dev
   servlet:
     multipart:
       max-file-size: 10MB
@@ -30,7 +32,7 @@ spring:
       time-between-eviction-runs-millis: 60000
       # 配置一个连接在池中最小生存的时间，单位是毫秒
       min-evictable-idle-time-millis: 30000
-      validation-query: SELECT 1 FROM DUAL
+      validation-query: SELECT 1
       test-while-idle: true
       test-on-borrow: true
       test-on-return: false
@@ -77,3 +79,12 @@ jwt:
   expiration: 604800 # 60 * 60 * 24 * 7
   tokenHeader: Authorization
   tokenHead: Bear
+
+---
+spring:
+  profiles: dev
+
+
+logging:
+  level:
+    club.auroraops04.auroraops04_blog.mapper: debug

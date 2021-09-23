@@ -14,46 +14,46 @@ import java.io.Serializable;
 public class User implements Serializable {
     @TableId(type = IdType.AUTO)
     @ApiModelProperty("主键")
-    private Long id;
+    protected Long id;
 
     /**
      * 用户名
      */
     @ApiModelProperty("用户名")
-    private String username;
+    protected String username;
 
     /**
      * 密码
      */
     @ApiModelProperty("密码")
-    private String password;
+    protected String password;
 
     /**
      * 邮箱
      */
     @ApiModelProperty("邮箱")
-    private String email;
+    protected String email;
 
     /**
      * 头像地址
      */
     @ApiModelProperty("头像地址")
-    private String avatar;
+    protected String avatar;
 
     /**
      * github地址
      */
     @ApiModelProperty("github地址")
-    private String github;
+    protected String github;
 
     /**
      * 个人说明
      */
     @ApiModelProperty("个人说明")
-    private String motto;
+    protected String motto;
 
     @ApiModelProperty("用户状态")
-    private UserStatus status;
+    protected UserStatus status;
 
     private static final long serialVersionUID = 1L;
 

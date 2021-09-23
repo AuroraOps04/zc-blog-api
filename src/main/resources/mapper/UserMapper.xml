@@ -1,14 +1,83 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="club.auroraops04.auroraops04_blog.mapper.UserMapper">
-    <select id="listByUserId" resultType="club.auroraops04.auroraops04_blog.entities.Permission">
-        select p.* from permission p where p.id in (
-            select permission_id from role_permission where role_id in (
-                select role_id from user_role where user_id = #{value}
-                )
-            )
-    </select>
+    <resultMap id="userListVo" type="club.auroraops04.auroraops04_blog.vo.UserInfoVo">
+        <id property="id" column="id"/>
+        <result property="username" column="username"/>
+        <result property="email" column="email"/>
+        <result property="avatar" column="avatar"/>
+        <result property="github" column="github"/>
+        <result property="motto" column="motto"/>
+        <result property="status" column="status"/>
+        <association property="lastLogin"
+                     javaType="club.auroraops04.auroraops04_blog.entities.LoginLog"> <!-- 这个必须放在 collection 上面 -->
+            <id property="id" column="l_id"/>
+            <result property="time" column="time"/>
+            <result property="ip" column="ip"/>
+            <result property="place" column="place"/>
+            <result property="device" column="device"/>
+        </association>
+        <collection property="roles" ofType="club.auroraops04.auroraops04_blog.entities.Role">
+            <id property="id" column="role_id"/>
+            <result property="name" column="role_name"/>
+            <result property="description" column="description"/>
+        </collection>
+        <collection property="permissions" ofType="club.auroraops04.auroraops04_blog.entities.Permission">
+            <id property="id" column="permission_id"/>
+            <result property="name" column="permission_name"/>
+            <result property="path" column="path"/>
+        </collection>
+    </resultMap>
     <select id="getByUsername" resultType="club.auroraops04.auroraops04_blog.entities.User">
-        select *  from user where username = #{value}
+        select *
+        from user
+        where username = #{value}
+    </select>
+
+    <select id="listByCondition" resultMap="userListVo">
+        select u.*,
+               r.id   as role_id,
+               r.name as role_name,
+               r.description,
+               p.id   as permission_id,
+               p.path,
+               p.name as permission_name,
+               llv.time,
+               llv.id as l_id,
+               llv.device,
+               llv.ip,
+               llv.place
+        from user u
+                 left join user_role ur on u.id = ur.user_id
+                 left join role r on ur.role_id = r.id
+                 left join role_permission rp
+                           on r.id = rp.role_id
+                 left join permission p on rp.permission_id = p.id
+                 left join (select ll.*
+                            from login_log ll
+                                     right join (select user_id, max(time) time from login_log group by user_id) llf
+                                                on ll.user_id = llf.user_id and ll.time = llf.time
+        ) llv on u.id = llv.user_id
+    <where>
+        <if test="username != null and username != ''">
+            and u.username like concat('%', concat(#{username}, '%'))
+        </if>
+        <if test="email != null and email != ''">
+            and u.email like concat('%', concat(#{email}, '%'))
+        </if>
+        <if test="status != null">
+            and u.status = #{status}
+        </if>
+        <if test="roleIds != null and roleIds.size() > 0">
+            and r.id in <foreach collection="roleIds" item="rId" open="(" close=")" separator=",">
+                            #{rId}
+                        </foreach>
+        </if>
+        <if test="permissionIds != null and permissionIds.size() > 0">
+            and p.id in <foreach collection="permissionIds" item="pId" open="(" close=")" separator=",">
+            #{pId}
+        </foreach>
+        </if>
+    </where>
     </select>
 </mapper>

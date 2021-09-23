@@ -8,6 +8,8 @@ import club.auroraops04.auroraops04_blog.service.UserService;
 import club.auroraops04.auroraops04_blog.utils.IpUtils;
 import club.auroraops04.auroraops04_blog.utils.JwtTokenUtil;
 import club.auroraops04.auroraops04_blog.utils.ServletUtils;
+import club.auroraops04.auroraops04_blog.vo.UserInfoVo;
+import club.auroraops04.auroraops04_blog.vo.request.UserListFilterForm;
 import cn.hutool.http.useragent.UserAgent;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -111,8 +113,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<User> listByCondition(User condition) {
-        return baseMapper.selectList(new QueryWrapper<>(condition));
+    public List<UserInfoVo> listByCondition(UserListFilterForm condition) {
+        return baseMapper.listByCondition(condition);
     }
 
     @Override
