@@ -108,6 +108,11 @@
             <version>8.5.9</version>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>org.csource</groupId>
+            <artifactId>fastdfs-client-java</artifactId>
+            <version>1.29-SNAPSHOT</version>
+        </dependency>
 
     </dependencies>
 

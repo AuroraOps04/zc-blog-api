@@ -72,7 +72,10 @@ mybatis-plus:
     - classpath:mapper/*.xml
     - classpath*:club/**/mapper/*.xml
   typeEnumsPackage: club.auroraops04.auroraops04_blog.entities.enums
-
+fastdfs:
+  tracker:
+    ip: auroraops04.club
+    httpPort: 8888
 
 jwt:
   secret:  sfsfsdfsfdasdfasfwiefwnf_+@&&23423
