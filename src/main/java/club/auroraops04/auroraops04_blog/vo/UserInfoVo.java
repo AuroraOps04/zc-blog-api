@@ -50,4 +50,12 @@ public class UserInfoVo extends User{
     public void setPermissions(List<Permission> permissions) {
         this.permissions = permissions;
     }
+
+    public LoginLog getLastLogin() {
+        return lastLogin;
+    }
+
+    public void setLastLogin(LoginLog lastLogin) {
+        this.lastLogin = lastLogin;
+    }
 }

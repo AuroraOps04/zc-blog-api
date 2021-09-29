@@ -15,7 +15,7 @@ import javax.validation.constraints.*;
 @ApiModel("修改用户信息参数实体")
 public class UpdateUserForm {
     @ApiModelProperty("主键")
-    @NotNull
+    @NotNull(message = "用户主键不能为 null")
     private Long id;
 
     /**
@@ -62,7 +62,6 @@ public class UpdateUserForm {
     private String motto;
 
     @ApiModelProperty("用户状态")
-    
     private UserStatus status;
 
     private static final long serialVersionUID = 1L;

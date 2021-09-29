@@ -11,6 +11,8 @@ import java.util.Date;
 
 @TableName("login_log")
 public class LoginLog implements Serializable {
+
+    private static final long serialVersionUID = 2528790020748191964L;
     @TableId(type = IdType.AUTO)
     private Long id;
 
@@ -39,7 +41,6 @@ public class LoginLog implements Serializable {
      */
     private String device;
 
-    private static final long serialVersionUID = 1L;
 
     public LoginLog() {
     }
