@@ -91,3 +91,10 @@ spring:
 logging:
   level:
     club.auroraops04.auroraops04_blog.mapper: debug
+cos:
+  accessKey: AKIDCE1XmjQqzrSouhEWYJn1zf5KIzPYR3OT
+  secretKey: qPggQt5zd05uSjjSv84j6C2bssc5HmFT
+  bucketArea: ap-guangzhou  # bucket区域
+  bucketName: blog-1259160488 #bucket名字
+  path: https://blog-1259160488.cos.ap-guangzhou.myqcloud.com #访问域名
+  prefix: img

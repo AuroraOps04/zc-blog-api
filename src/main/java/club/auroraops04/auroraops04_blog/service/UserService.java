@@ -1,9 +1,8 @@
 package club.auroraops04.auroraops04_blog.service;
 
-import club.auroraops04.auroraops04_blog.entities.Permission;
 import club.auroraops04.auroraops04_blog.entities.User;
 import club.auroraops04.auroraops04_blog.vo.UserInfoVo;
-import club.auroraops04.auroraops04_blog.vo.request.UserListFilterForm;
+import club.auroraops04.auroraops04_blog.vo.request.UserListFilterRequest;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
@@ -24,11 +23,12 @@ public interface UserService extends IService<User> {
 
     boolean register(User user);
 
-    boolean update(User user);
+    User update(User user);
+
 
     User getByCondition(User condition);
 
-    List<UserInfoVo> listByCondition(UserListFilterForm condition);
+    List<UserInfoVo> listByCondition(UserListFilterRequest condition);
 
     int deleteBatch(Set<Long> ids);
 }

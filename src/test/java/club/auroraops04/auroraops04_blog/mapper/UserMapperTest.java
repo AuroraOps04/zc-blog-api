@@ -1,6 +1,6 @@
 package club.auroraops04.auroraops04_blog.mapper;
 
-import club.auroraops04.auroraops04_blog.vo.request.UserListFilterForm;
+import club.auroraops04.auroraops04_blog.vo.request.UserListFilterRequest;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +16,7 @@ public class UserMapperTest {
 
     @Test
     public void testListByCondition(){
-        UserListFilterForm userListFilterForm = new UserListFilterForm();
+        UserListFilterRequest userListFilterForm = new UserListFilterRequest();
         userListFilterForm.setUsername("s");
         userMapper.listByCondition(userListFilterForm).forEach(System.out::println);
     }

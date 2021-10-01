@@ -4,7 +4,7 @@ import club.auroraops04.auroraops04_blog.entities.User;
 
 import java.util.List;
 
-public class UserListFilterForm extends User {
+public class UserListFilterRequest extends User {
     private List<Long> roleIds;
     private List<Long> permissionIds;
 }

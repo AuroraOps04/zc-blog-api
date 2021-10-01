@@ -4,8 +4,8 @@ import club.auroraops04.auroraops04_blog.core.BaseController;
 import club.auroraops04.auroraops04_blog.entities.User;
 import club.auroraops04.auroraops04_blog.service.UserService;
 import club.auroraops04.auroraops04_blog.utils.JwtTokenUtil;
-import club.auroraops04.auroraops04_blog.vo.request.LoginForm;
-import club.auroraops04.auroraops04_blog.vo.request.RegisterForm;
+import club.auroraops04.auroraops04_blog.vo.request.LoginRequest;
+import club.auroraops04.auroraops04_blog.vo.request.RegisterRequest;
 import club.auroraops04.auroraops04_blog.vo.response.ApiResponse;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -40,7 +40,7 @@ public class BlogUserController extends BaseController {
 
     @PostMapping("/login")
     @ApiOperation("登录api")
-    public ApiResponse<Object> login(@RequestBody @Valid LoginForm form) {
+    public ApiResponse<Object> login(@RequestBody @Valid LoginRequest form) {
         Optional<String> token = userService.login(form.getUsername(), form.getPassword());
         if (!token.isPresent()) {
             return success(false, "账号密码错误");
@@ -52,26 +52,31 @@ public class BlogUserController extends BaseController {
 
     @PostMapping("/register")
     @ApiOperation("注册api")
-    public ApiResponse<Object> register(@RequestBody @Valid RegisterForm form) {
+    public ApiResponse<Object> register(@RequestBody @Valid RegisterRequest form) {
         User user = new User();
         BeanUtils.copyProperties(form, user);
-        boolean register = userService.register(user);
-        if (register) {
-            return created();
+        boolean saved = userService.register(user);
+        if (saved) {
+            return created(user);
         } else {
-            return success(false);
+            return success(null, false);
         }
     }
 
     @PutMapping("/")
     @ApiOperation("修改个人用户信息")
     @PreAuthorize("hasAuthority('blog:user:edit')")
-    public ApiResponse<Object> update(@RequestBody @Valid User user) {
+    public ApiResponse<User> update(@RequestBody @Valid User user) {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         UserDetails principal = (UserDetails) authentication.getPrincipal();
         User byUsername = userService.getByUsername(principal.getUsername());
         BeanUtils.copyProperties(user, byUsername, "username", "email", "id");
-        return success(userService.update(byUsername));
+
+        User updateUser = userService.update(user);
+        if(null == updateUser){
+            return success(null, false);
+        }
+        return success(updateUser);
     }
 
 

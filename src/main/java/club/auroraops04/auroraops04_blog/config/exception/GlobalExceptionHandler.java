@@ -7,7 +7,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.support.DefaultMessageSourceResolvable;
 import org.springframework.jdbc.BadSqlGrammarException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.web.access.AccessDeniedHandler;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -77,12 +79,22 @@ public class GlobalExceptionHandler {
     }
 
     /**
+     * 没有权限访问会抛出的异常
+     * @param e
+     * @return
+     */
+    @ExceptionHandler(AccessDeniedException.class)
+    public ApiResponse<Object> accessDeniedExceptionHandler(AccessDeniedException e){
+        return new ApiResponse<>(ApiResponseCode.FORBIDDEN,false);
+    }
+
+    /**
      * 处理其他所有异常
      * @param e 异常对象
      */
     @ExceptionHandler(Exception.class)
     public ApiResponse<Object> allExceptionHandler(Exception e){
         LOGGER.error(e.getMessage());
-        return new ApiResponse<>(ApiResponseCode.SERVER_ERROR);
+        return new ApiResponse<>(ApiResponseCode.SERVER_ERROR, false);
     }
 }

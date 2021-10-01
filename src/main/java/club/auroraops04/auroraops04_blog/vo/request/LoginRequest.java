@@ -1,16 +1,14 @@
 package club.auroraops04.auroraops04_blog.vo.request;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 /**
  * @author AuroraOps04
- * @date 2021/9/14 16:08:21
+ * @date 2021/9/14 15:54:12
  * @description
  */
-public class RegisterForm {
-
+public class LoginRequest {
     @NotNull(message = "用户名不能为空")
     @Size(min = 6, max = 20, message = "用户名长度为6-20")
     private String username;
@@ -19,17 +17,12 @@ public class RegisterForm {
     @Size(min = 6, max = 20, message = "密码长度为6-20")
     private String password;
 
-    @NotNull(message = "邮箱不能为空")
-    @Email(message = "邮箱格式不符合")
-    private String email;
-
-    public RegisterForm() {
+    public LoginRequest() {
     }
 
-    public RegisterForm(String username, String password, String email) {
+    public LoginRequest(String username, String password) {
         this.username = username;
         this.password = password;
-        this.email = email;
     }
 
     public String getUsername() {
@@ -46,13 +39,5 @@ public class RegisterForm {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
     }
 }

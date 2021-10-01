@@ -2,6 +2,7 @@ package club.auroraops04.auroraops04_blog.core;
 
 import club.auroraops04.auroraops04_blog.core.page.PageDomain;
 import club.auroraops04.auroraops04_blog.core.page.TableSupport;
+import club.auroraops04.auroraops04_blog.entities.User;
 import club.auroraops04.auroraops04_blog.utils.SqlUtil;
 import club.auroraops04.auroraops04_blog.utils.StringUtils;
 import club.auroraops04.auroraops04_blog.vo.response.ApiPageResponse;
@@ -70,6 +71,9 @@ public class BaseController {
         return new ApiResponse<>(ApiResponseCode.CREATED);
     }
 
+    protected   <T> ApiResponse<T> created(T data){
+        return new ApiResponse<>(ApiResponseCode.CREATED, data);
+    }
     protected   ApiResponse<Object> badRequest(){
         return new ApiResponse<>(ApiResponseCode.BAD_REQUEST, false);
     }

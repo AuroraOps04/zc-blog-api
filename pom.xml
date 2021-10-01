@@ -113,7 +113,11 @@
             <artifactId>fastdfs-client-java</artifactId>
             <version>1.29-SNAPSHOT</version>
         </dependency>
-
+        <dependency>
+            <groupId>com.qcloud</groupId>
+            <artifactId>cos_api</artifactId>
+            <version>5.2.4</version>
+        </dependency>
     </dependencies>
 
 

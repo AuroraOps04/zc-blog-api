@@ -1,23 +1,19 @@
 package club.auroraops04.auroraops04_blog.vo.request;
 
 import club.auroraops04.auroraops04_blog.entities.enums.UserStatus;
-import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import org.hibernate.validator.constraints.URL;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Size;
 
 /**
  * @author AuroraOps04
- * @date 2021/9/15 14:34:39
+ * @date 2021/9/30 14:58:10
  * @description
  */
-@ApiModel("修改用户信息参数实体")
-public class UpdateUserForm {
-    @ApiModelProperty("主键")
-    @NotNull(message = "用户主键不能为 null")
-    private Long id;
-
+public class SaveUserRequest {
     /**
      * 用户名
      */
@@ -57,7 +53,7 @@ public class UpdateUserForm {
      * 个人说明
      */
     @ApiModelProperty("个人说明")
-    
+
     @Size(max = 255, message = "个人说明过长")
     private String motto;
 
@@ -65,14 +61,6 @@ public class UpdateUserForm {
     private UserStatus status;
 
     private static final long serialVersionUID = 1L;
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;

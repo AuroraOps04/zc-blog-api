@@ -9,7 +9,7 @@ import club.auroraops04.auroraops04_blog.utils.IpUtils;
 import club.auroraops04.auroraops04_blog.utils.JwtTokenUtil;
 import club.auroraops04.auroraops04_blog.utils.ServletUtils;
 import club.auroraops04.auroraops04_blog.vo.UserInfoVo;
-import club.auroraops04.auroraops04_blog.vo.request.UserListFilterForm;
+import club.auroraops04.auroraops04_blog.vo.request.UserListFilterRequest;
 import cn.hutool.http.useragent.UserAgent;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -93,18 +93,22 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     public boolean register(User user) {
         //TODO: 检测用户名和邮箱是否存在
         //TODO: 发送事件 激活邮件给用户,让用户激活后才能使用,提取一个方法
-//        user.setStatus(UserStatus.INACTIVE);
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
         return save(user);
     }
 
     @Override
-    public boolean update(User user) {
+    public User update(User user) {
         if(null == user || null == user.getId()){
-            return false;
+            return null;
         }
         int i = baseMapper.updateById(user);
-        return i > 0;
+        return i > 0 ? baseMapper.selectById(user.getId()): null;
+    }
+
+    @Override
+    public boolean save(User user){
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        return super.save(user);
     }
 
     @Override
@@ -113,7 +117,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     }
 
     @Override
-    public List<UserInfoVo> listByCondition(UserListFilterForm condition) {
+    public List<UserInfoVo> listByCondition(UserListFilterRequest condition) {
         return baseMapper.listByCondition(condition);
     }
 
